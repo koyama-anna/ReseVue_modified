@@ -1,25 +1,26 @@
 <template>
-<div class="home flex">
-    <div v-for="shop in shops" :key="shop.id" >
-        <div class="shop-card">
-            <div class="shop-photo"><img src="{{ shop.photo }}" alt="" /></div>
-            <div class="shop-content">
-                <div class="shop-name">{{ shop.name }}</div>
-                <div class="tag">
-                    <div class="shop-area">#{{ shop.area }}</div>
-                    <div class="shop-genre">#{{ shop.genre }}</div>
-                </div>
-                <div class="btn">
-                    <div class="detail-btn">
-                        <button type="submit" value="detail">詳しくみる</button>
-                    </div>
-                <div class="favorite-btn">
-                    <button type="button" value="favorite"></button>
-                </div>
+  <div class="home flex">
+    <div v-for="shop in shops" :key="shop.id">
+      <div class="shop-card">
+        <div class="shop-photo"><img src="{{ shop.photo }}" alt="" /></div>
+        <div class="shop-content">
+          <div class="shop-name">{{ shop.name }}</div>
+          <div class="tag">
+            <div class="shop-area">#{{ shop.area }}</div>
+            <div class="shop-genre">#{{ shop.genre }}</div>
+          </div>
+          <div class="btn">
+            <div class="detail-btn">
+              <button type="submit" value="detail">詳しくみる</button>
             </div>
+            <div class="favorite-btn">
+              <button type="button" value="favorite"></button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -28,21 +29,20 @@ import axios from "axios";
 export default {
   data() {
     return {
-      photo:"",
-      name:"",
-      area:"",
-      genre:"",
+      photo: "",
+      name: "",
+      area: "",
+      genre: "",
     };
   },
-  async created() {
-    const item=await axios.get("http://localhost:8000/api/v1/shop");
-    const shopData=item.data;
-    this.photo=shopData.photo;
-    this.name=shopData.name;
-    this.area=shopData.area;
-    this.genre=shopData.genre;
-    }
-
+  async mounted() {
+    const item = await axios.get("http://localhost:8000/api/v1/shop");
+    const shopData = item.data;
+    this.photo = shopData.photo;
+    this.name = shopData.name;
+    this.area = shopData.area;
+    this.genre = shopData.genre;
+  },
 };
 </script>
 

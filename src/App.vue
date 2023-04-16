@@ -7,7 +7,7 @@
 
 <script>
 import Header from "./components/TheHeader";
-import TheShopAll from "../components/TheShopAll.vue";
+import TheShopAll from "./components/TheShopAll.vue";
 export default {
   components: {
     Header,
