@@ -1,6 +1,6 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-import TheShopAll from "../views/TheShopAll.vue";
+import { createRouter, createWebHashHistory } from 'vue-router';
+import TheShopAll from "./components/TheShopAll.vue";
 
 Vue.use(VueRouter);
 
@@ -12,10 +12,12 @@ component: TheShopAll,
 },
 ]
 
-const router = new VueRouter({
-mode: "history",
-base: process.env.BASE_URL,
-routes,
+const router = createRouter({
+
+    history: createWebHashHistory(),
+
+    routes
+
 });
 
 export default router;
