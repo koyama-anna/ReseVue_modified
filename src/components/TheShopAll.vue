@@ -1,8 +1,13 @@
 <template>
+  <div class="center">
+    <h1 class="header-logo">RESE</h1>
+  </div>
   <div class="home flex">
     <div v-for="shop in shops" :key="shop.id">
       <div class="shop-card">
-        <div class="shop-photo"><img src="{{ shop.photo }}" alt="" /></div>
+        <div class="shop-photo">
+          <img src="{{ shop.photo }}" alt="イメージ画像" />
+        </div>
         <div class="shop-content">
           <div class="shop-name">{{ shop.name }}</div>
           <div class="tag">
@@ -11,10 +16,15 @@
           </div>
           <div class="btn">
             <div class="detail-btn">
-              <button type="submit" value="detail">詳しくみる</button>
+              <router-link
+                :to="{ name: 'theshopinfo', params: { id: shop.id } }"
+                >詳しくみる</router-link
+              >
             </div>
             <div class="favorite-btn">
-              <button type="button" value="favorite"></button>
+              <button type="button" value="favorite" class="heart">
+                いいね
+              </button>
             </div>
           </div>
         </div>
@@ -25,69 +35,53 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
-      photo: "",
-      name: "",
-      area: "",
-      genre: "",
+      shops: [
+        {
+          id: "",
+          photo: "",
+          name: "",
+          area: "",
+          genre: "",
+        },
+      ],
     };
   },
+
   async mounted() {
     const item = await axios.get("http://localhost:8000/api/v1/shop");
     const shopData = item.data;
-    this.photo = shopData.photo;
-    this.name = shopData.name;
-    this.area = shopData.area;
-    this.genre = shopData.genre;
+    this.shops = shopData.data;
   },
 };
 </script>
 
 <style scoped>
-body {
-  background: #eee;
+header {
+  height: 70px;
+  line-height: 70px;
 }
-.flex {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-.card {
-  width: 27%;
-  margin: 30px 0;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px #ccc;
-}
-.card-img {
-  border-radius: 5px 5px 0 0;
-  max-width: 100%;
-  height: auto;
-}
-.card-content {
-  padding: 20px;
-}
-.card-title {
+.center {
   font-size: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #333;
+  font-weight: bold;
+  color: #077af2;
 }
-.card-link {
-  text-align: center;
-  border-top: 1px solid #eee;
-  padding: 20px;
+.shop-card {
+  width: 360px;
+  border-radius: 10px;
+  margin: 30px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
 }
-.card-link a {
-  text-decoration: none;
-  color: #0bd;
-  margin: 0 10px;
-  cursor: pointer;
+
+.shop-photo img {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
-.card-link a:hover {
-  color: #0090aa;
+
+.shp-content {
+  padding: 15px 25px;
 }
 </style>
