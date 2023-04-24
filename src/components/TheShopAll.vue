@@ -6,7 +6,7 @@
     <div v-for="shop in shops" :key="shop.id">
       <div class="shop-card">
         <div class="shop-photo">
-          <img src="{{ shop.photo }}" alt="イメージ画像" />
+          <img :src="shop.photo" alt="イメージ画像" />
         </div>
         <div class="shop-content">
           <div class="shop-name">{{ shop.name }}</div>
@@ -38,15 +38,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      shops: [
-        {
-          id: "",
-          photo: "",
-          name: "",
-          area: "",
-          genre: "",
-        },
-      ],
+      shops: [],
     };
   },
 
