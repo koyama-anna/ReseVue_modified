@@ -22,8 +22,14 @@
               >
             </div>
             <div class="favorite-btn">
-              <button type="button" value="favorite" class="heart">
-                いいね
+              <button
+                @click="toggleFavorite"
+                type="button"
+                value="favorite"
+                class="heart"
+              >
+                <div v-if="shop.isFavorite == true">いいねを解除</div>
+                <div v-else>いいねをつける</div>
               </button>
             </div>
           </div>
@@ -38,14 +44,29 @@ import axios from "axios";
 export default {
   data() {
     return {
-      shops: [],
+      user: [],
+      shops: [
+        {
+          id: "1",
+          photo: "",
+          name: "",
+          area: "",
+          genre: "",
+          isfavorite: true,
+        },
+      ],
     };
   },
-
-  async mounted() {
-    const item = await axios.get("http://localhost:8000/api/v1/shop");
-    const shopData = item.data;
-    this.shops = shopData.data;
+  methods: {
+    toggleFavorite() {
+      this.shops.map((x) => (x.isFavorite = !x.isFavorite));
+    },
+    addFavorite() {
+      axios.post("http://localhost:8000/api/v1/shop", {
+        shop_id: this.user.id,
+        user_id: this.shops.id,
+      });
+    },
   },
 };
 </script>

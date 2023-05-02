@@ -24,7 +24,7 @@ export default {
 
   async mounted() {
     const item = await axios.get(
-      "http://localhost:8000/api/v1/shop/${this.id}"
+      "http://localhost:8000/api/v1/shop/this.$route.params.id"
     );
     const shopData = item.data;
     this.shops = shopData.data;
