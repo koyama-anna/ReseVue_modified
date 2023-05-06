@@ -1,18 +1,20 @@
-<templete>
-    <div class="login">
-        <div class="form-item">
-            <label for="email">Email</label>
-            <input id="email" type="text" v-model="email">
-        </div>
-        <div class="form-item">
-            <label for="password">Password</label>
-            <input id="password" type="text" v-model="password">
-        </div>
-        <div class="form-item">
-            <router-link :to="{ name: 'theshopall' }" @click="handle">Login</router-link>
-        </div>
+<template>
+  <div class="login">
+    <div class="form-item">
+      <label for="email">Email</label>
+      <input id="email" type="text" v-model="email" />
     </div>
-</templete>
+    <div class="form-item">
+      <label for="password">Password</label>
+      <input id="password" type="text" v-model="password" />
+    </div>
+    <div class="form-item">
+      <router-link :to="{ name: 'theshopall' }" @click="handle()"
+        >Login</router-link
+      >
+    </div>
+  </div>
+</template>
 
 <script>
 import axios from "axios";
