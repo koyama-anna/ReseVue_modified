@@ -5,7 +5,7 @@
   <div class="shop-detail">
     <router-link :to="{ name: 'theshopall' }" class="back">戻る</router-link>
     <div class="shop-name">{{ shop.name }}</div>
-    <div class="shop-photo"><img src="{{ shop.photo }}" alt="" /></div>
+    <div class="shop-photo"><img :src="shop.photo" alt="" /></div>
     <div class="shop-area">#{{ shop.area }}</div>
     <div class="shop-genre">#{{ shop.genre }}</div>
     <div class="shop-infomation">{{ shop.infomation }}</div>
@@ -24,10 +24,11 @@ export default {
 
   async mounted() {
     const item = await axios.get(
-      "http://localhost:8000/api/v1/shop/this.$route.params.id"
+      `http://localhost:8000/api/v1/shop/${this.$route.params.id}`
     );
+    console.log(item);
     const shopData = item.data;
-    this.shops = shopData.data;
+    this.shop = shopData.data;
   },
 };
 </script>

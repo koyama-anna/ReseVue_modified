@@ -67,6 +67,7 @@ export default {
         user_id: this.shops.id,
       });
     },
+    deleteFavorite() {},
   },
 };
 </script>
