@@ -44,30 +44,18 @@ import axios from "axios";
 export default {
   data() {
     return {
-      user: [],
-      shops: [
-        {
-          id: "1",
-          photo: "",
-          name: "",
-          area: "",
-          genre: "",
-          isfavorite: true,
-        },
-      ],
+      shops: [],
     };
   },
   methods: {
     toggleFavorite() {
       this.shops.map((x) => (x.isFavorite = !x.isFavorite));
     },
-    addFavorite() {
-      axios.post("http://localhost:8000/api/v1/shop", {
-        shop_id: this.user.id,
-        user_id: this.shops.id,
-      });
-    },
-    deleteFavorite() {},
+  },
+  async mounted() {
+    const item = await axios.get("http://localhost:8000/api/v1/shop");
+    const shopData = item.data;
+    this.shops = shopData.data;
   },
 };
 </script>
