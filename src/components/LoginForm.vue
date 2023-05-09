@@ -9,9 +9,7 @@
       <input id="password" type="text" v-model="password" />
     </div>
     <div class="form-item">
-      <router-link :to="{ name: 'theshopall' }" @click="handle()"
-        >Login</router-link
-      >
+      <button @click="handle()">Login</button>
     </div>
   </div>
 </template>
@@ -34,6 +32,7 @@ export default {
         })
       ).data.token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // axiosのすべてのリクエストにトークンを付加する
+      this.$router.push({ name: "theshopall" });
     },
   },
 };
