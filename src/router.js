@@ -28,4 +28,18 @@ const router = createRouter({
     routes
 });
 
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = localStorage.getItem('token')
+    if (to.name == 'loginform') {
+        if (isAuthenticated) {
+            next({ name: 'theshopall' })
+        }
+        next()
+    }
+    if (!isAuthenticated) {
+        next({ name: 'loginform' })
+    } else {
+        next()
+    }
+})
 export default router;

@@ -28,7 +28,7 @@
                 value="favorite"
                 class="heart"
               >
-                <div v-if="shop.isFavorite == true">いいねを解除</div>
+                <div v-if="isFavorite == true">いいねを解除</div>
                 <div v-else>いいねをつける</div>
               </button>
             </div>
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       shops: [],
+      favorites: [],
     };
   },
   methods: {
@@ -56,6 +57,14 @@ export default {
     const item = await axios.get("http://localhost:8000/api/v1/shop");
     const shopData = item.data;
     this.shops = shopData.data;
+    const favorite = await axios.get("http://localhost:8000/api/v1/favorite");
+    const favoriteData = favorite.data;
+    this.favorites = favoriteData.data;
+  },
+  computed: {
+    isFavorite() {
+      return this.favorites.filter((x) => x.shop_id == this.shop.id);
+    },
   },
 };
 </script>
