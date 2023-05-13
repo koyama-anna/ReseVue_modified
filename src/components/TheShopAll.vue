@@ -63,7 +63,12 @@ export default {
   },
   computed: {
     isFavorite() {
-      return this.favorites.filter((x) => x.shop_id == this.shop.id);
+      const favorite = this.favorites.filter((x) => x.shop_id == this.shop.id);
+      if (favorite.length == 0) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
 };
