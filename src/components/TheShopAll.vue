@@ -23,12 +23,12 @@
             </div>
             <div class="favorite-btn">
               <button
-                @click="toggleFavorite"
+                @click="toggleFavorite(shop.id)"
                 type="button"
                 value="favorite"
                 class="heart"
               >
-                <div v-if="isFavorite == true">いいねを解除</div>
+                <div v-if="isFavorite(shop.id) == true">いいねを解除</div>
                 <div v-else>いいねをつける</div>
               </button>
             </div>
@@ -49,8 +49,15 @@ export default {
     };
   },
   methods: {
-    toggleFavorite() {
-      this.shops.map((x) => (x.isFavorite = !x.isFavorite));
+    async toggleFavorite(shopId) {
+      await axios.post("http://localhost:8000/api/v1/shop", {
+        shop_id: shopId,
+      });
+    },
+    isFavorite(shopId) {
+      const favorite = this.favorites.filter((x) => x.shop_id == shopId);
+      console.log(favorite);
+      return favorite.length != 0;
     },
   },
   async mounted() {
@@ -60,16 +67,6 @@ export default {
     const favorite = await axios.get("http://localhost:8000/api/v1/favorite");
     const favoriteData = favorite.data;
     this.favorites = favoriteData.data;
-  },
-  computed: {
-    isFavorite() {
-      const favorite = this.favorites.filter((x) => x.shop_id == this.shop.id);
-      if (favorite.length == 0) {
-        return false;
-      } else {
-        return true;
-      }
-    },
   },
 };
 </script>
