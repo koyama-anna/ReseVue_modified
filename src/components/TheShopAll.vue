@@ -61,16 +61,18 @@ export default {
   },
   methods: {
     async toggleFavorite(shopId) {
-      await axios.post("http://localhost:8000/api/v1/shop", {
+      await axios.post("http://localhost:8000/api/v1/favorite", {
         shop_id: shopId,
       });
       console.log(shopId);
+      this.$router.push({ name: "theshopall" });
     },
     async deleteFavorite(shopId) {
-      await axios.delete("http://localhost:8000/api/v1/shop", {
+      await axios.delete("http://localhost:8000/api/v1/favorite", {
         shop_id: shopId,
       });
       console.log(shopId);
+      this.$router.push({ name: "theshopall" });
     },
     isFavorite(shopId) {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
