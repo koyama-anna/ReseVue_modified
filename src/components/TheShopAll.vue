@@ -22,15 +22,26 @@
               >
             </div>
             <div class="favorite-btn">
-              <button
-                @click="toggleFavorite(shop.id)"
-                type="button"
-                value="favorite"
-                class="heart"
-              >
-                <div v-if="isFavorite(shop.id) == true">いいねを解除</div>
-                <div v-else>いいねをつける</div>
-              </button>
+              <div v-if="isFavorite(shop.id) == true">
+                <button
+                  @click="deleteFavorite(shop.id)"
+                  type="button"
+                  value="favorite"
+                  class="heart"
+                >
+                  いいねを解除
+                </button>
+              </div>
+              <div v-else>
+                <button
+                  @click="toggleFavorite(shop.id)"
+                  type="button"
+                  value="favorite"
+                  class="heart"
+                >
+                  いいねをつける
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -51,6 +62,12 @@ export default {
   methods: {
     async toggleFavorite(shopId) {
       await axios.post("http://localhost:8000/api/v1/shop", {
+        shop_id: shopId,
+      });
+      console.log(shopId);
+    },
+    async deleteFavorite(shopId) {
+      await axios.delete("http://localhost:8000/api/v1/shop", {
         shop_id: shopId,
       });
       console.log(shopId);
