@@ -53,10 +53,10 @@ export default {
       await axios.post("http://localhost:8000/api/v1/shop", {
         shop_id: shopId,
       });
+      console.log(shopId);
     },
     isFavorite(shopId) {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
-      console.log(favorite);
       return favorite.length != 0;
     },
   },
