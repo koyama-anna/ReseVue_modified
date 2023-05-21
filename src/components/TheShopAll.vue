@@ -64,15 +64,22 @@ export default {
       await axios.post("http://localhost:8000/api/v1/favorite", {
         shop_id: shopId,
       });
+
+      const favorite = axios.get("http://localhost:8000/api/v1/favorite");
+      const favoriteData = favorite.data;
+      this.favorites = favoriteData.data;
       console.log(shopId);
-      this.$router.push({ name: "theshopall" });
     },
     async deleteFavorite(shopId) {
-      await axios.delete("http://localhost:8000/api/v1/favorite", {
-        shop_id: shopId,
-      });
-      console.log(shopId);
-      this.$router.push({ name: "theshopall" });
+      const favorite = this.favorites.filter((x) => x.shop_id == shopId);
+      await axios.delete(
+        `http://localhost:8000/api/v1/favorite/${favorite[0].id}`
+      );
+      const newFavorite = await axios.get(
+        "http://localhost:8000/api/v1/favorite"
+      );
+      const favoriteData = newFavorite.data;
+      this.favorites = favoriteData.data;
     },
     isFavorite(shopId) {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
