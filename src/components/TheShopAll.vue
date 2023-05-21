@@ -1,46 +1,49 @@
 <template>
-  <div class="center">
-    <h1 class="header-logo">RESE</h1>
-  </div>
-  <div class="home flex">
-    <div v-for="shop in shops" :key="shop.id">
-      <div class="shop-card">
-        <div class="shop-photo">
-          <img :src="shop.photo" alt="イメージ画像" />
-        </div>
-        <div class="shop-content">
-          <div class="shop-name">{{ shop.name }}</div>
-          <div class="tag">
-            <div class="shop-area">#{{ shop.area }}</div>
-            <div class="shop-genre">#{{ shop.genre }}</div>
+  <div class="all">
+    <div class="center">
+      <h1 class="header-logo">Rese</h1>
+    </div>
+    <div class="home flex">
+      <div v-for="shop in shops" :key="shop.id">
+        <div class="shop-card">
+          <div class="shop-photo">
+            <img :src="shop.photo" alt="イメージ画像" />
           </div>
-          <div class="btn">
-            <div class="detail-btn">
-              <router-link
-                :to="{ name: 'theshopinfo', params: { id: shop.id } }"
-                >詳しくみる</router-link
-              >
+          <div class="shop-content">
+            <div class="shop-name">{{ shop.name }}</div>
+            <div class="tag">
+              <div class="shop-area">#{{ shop.area }}</div>
+              <div class="shop-genre">#{{ shop.genre }}</div>
             </div>
-            <div class="favorite-btn">
-              <div v-if="isFavorite(shop.id) == true">
-                <button
-                  @click="deleteFavorite(shop.id)"
-                  type="button"
-                  value="favorite"
-                  class="heart"
+            <div class="btn">
+              <div class="detail-btn">
+                <router-link
+                  :to="{ name: 'theshopinfo', params: { id: shop.id } }"
+                  class="link"
+                  >詳しくみる</router-link
                 >
-                  いいねを解除
-                </button>
               </div>
-              <div v-else>
-                <button
-                  @click="toggleFavorite(shop.id)"
-                  type="button"
-                  value="favorite"
-                  class="heart"
-                >
-                  いいねをつける
-                </button>
+              <div class="favorite-btn">
+                <div v-if="isFavorite(shop.id) == true">
+                  <button
+                    @click="deleteFavorite(shop.id)"
+                    type="button"
+                    value="favorite"
+                    class="heart-1"
+                  >
+                    &hearts;
+                  </button>
+                </div>
+                <div v-else>
+                  <button
+                    @click="toggleFavorite(shop.id)"
+                    type="button"
+                    value="favorite"
+                    class="heart-2"
+                  >
+                    &hearts;
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -98,7 +101,17 @@ export default {
 </script>
 
 <style scoped>
-header {
+.all {
+  background-color: #ebebeb;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 50px;
+}
+
+.header-logo {
   height: 70px;
   line-height: 70px;
 }
@@ -108,19 +121,65 @@ header {
   color: #077af2;
 }
 .shop-card {
-  width: 360px;
-  border-radius: 10px;
-  margin: 30px;
+  width: 260px;
+  border-radius: 5px;
+  margin: 15px 5px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .shop-photo img {
   width: 100%;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
-.shp-content {
+.shop-content {
   padding: 15px 25px;
+  background-color: white;
+}
+
+.shop-name {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.tag {
+  display: flex;
+}
+
+.detail-btn {
+  background-color: #006cd9;
+  width: 60px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+.heart-1 {
+  color: red;
+  font-size: 24px;
+  border: none;
+  background: transparent;
+  transform: scaleX(1.5);
+  margin: 15px 0;
+}
+
+.heart-2 {
+  color: #ebebeb;
+  font-size: 24px;
+  border: none;
+  background: transparent;
+  transform: scaleX(1.5);
+  margin: 15px 0;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
