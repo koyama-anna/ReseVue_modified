@@ -136,6 +136,8 @@ export default {
 .shop-content {
   padding: 15px 25px;
   background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .shop-name {
