@@ -122,11 +122,11 @@ export default {
     async reserve(shopId, reserveDate, reserveTime, reserveNumber) {
       await axios.post("http://localhost:8000/api/v1/reservation", {
         shop_id: shopId,
-        date: "reserveDate",
-        time: "reserveTime",
+        date: reserveDate,
+        time: reserveTime,
         number: reserveNumber,
       });
-      console.log(reserveDate);
+      this.$router.push({ name: "reservedone" });
     },
   },
 };
