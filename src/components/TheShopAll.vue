@@ -3,6 +3,14 @@
     <div class="center">
       <h1 class="header-logo">Rese</h1>
     </div>
+    <div class="search">
+      <select name="area" v-model="search_area">
+        <option value="" selected>All area</option>
+        <option value="東京都">東京都</option>
+        <option value="福岡県">福岡県</option>
+        <option value="大阪府">大阪府</option>
+      </select>
+    </div>
     <div class="home flex">
       <div v-for="shop in shops" :key="shop.id">
         <div class="shop-card">
@@ -60,6 +68,7 @@ export default {
     return {
       shops: [],
       favorites: [],
+      search_area: "",
     };
   },
   methods: {
@@ -68,7 +77,7 @@ export default {
         shop_id: shopId,
       });
 
-      const favorite = axios.get("http://localhost:8000/api/v1/favorite");
+      const favorite = await axios.get("http://localhost:8000/api/v1/favorite");
       const favoriteData = favorite.data;
       this.favorites = favoriteData.data;
       console.log(shopId);
@@ -87,6 +96,11 @@ export default {
     isFavorite(shopId) {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
       return favorite.length != 0;
+    },
+    filteredAreas() {
+      const item = this.shops.filter((x) => x.area == this.search_area);
+      const shopData = item.data;
+      this.shops = shopData;
     },
   },
   async mounted() {

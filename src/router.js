@@ -4,6 +4,7 @@ import TheShopAll from "./components/TheShopAll.vue";
 import TheShopInfo from "./components/TheShopInfo.vue";
 import LoginForm from "./components/LoginForm.vue";
 import ReserveDone from "./components/ReserveDone.vue";
+import MyPage from "./components/MyPage.vue";
 
 
 const routes = [
@@ -26,6 +27,11 @@ const routes = [
     path:"/done",
     name:"reservedone",
     component: ReserveDone,
+},
+{
+    path:"/mypage",
+    name:"mypage",
+    component: MyPage,
 }
 ]
 
