@@ -6,13 +6,13 @@
     <div class="reservation">
       <div class="reserve">予約状況</div>
       <div
-        v-for="reservation in reservations"
+        v-for="(reservation, index) in reservations"
         :key="reservation.id"
         class="reserve-card"
       >
         <div class="reserve-no">
           <div class="reserve-ttl">
-            <div class="reserve-name">予約{{ shop }}</div>
+            <div class="reserve-name">予約{{ index + 1 }}</div>
             <div class="cancel-btn" @click="deleteReserve(reservation.id)">
               ×
             </div>

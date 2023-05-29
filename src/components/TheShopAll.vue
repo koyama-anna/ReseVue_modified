@@ -97,10 +97,12 @@ export default {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
       return favorite.length != 0;
     },
-    filteredAreas() {
-      const item = this.shops.filter((x) => x.area == this.search_area);
+    async filteredAreas(shopArea) {
+      const item = await axios.get("http://localhost:8000/api/v1/shop", {
+        area: shopArea,
+      });
       const shopData = item.data;
-      this.shops = shopData;
+      this.shops = shopData.data;
     },
   },
   async mounted() {
@@ -110,6 +112,11 @@ export default {
     const favorite = await axios.get("http://localhost:8000/api/v1/favorite");
     const favoriteData = favorite.data;
     this.favorites = favoriteData.data;
+  },
+  computed: {
+    searchAreas() {
+      return this.filteredAreas(this.search_area);
+    },
   },
 };
 </script>
