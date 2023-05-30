@@ -21,7 +21,7 @@
             <table class="list-table">
               <tr class="list-shop">
                 <th>Shop</th>
-                <td>{{ reservation.shop_id }}</td>
+                <td>{{ shopName(reservation.shop_id) }}</td>
               </tr>
               <tr class="list-date">
                 <th>Date</th>
@@ -114,6 +114,10 @@ export default {
     isFavorite(shopId) {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
       return favorite.length != 0;
+    },
+    shopName(shopId) {
+      const shop = this.shops.filter((x) => x.id == shopId);
+      return shop[0].name;
     },
     async deleteReserve(reserveId) {
       await axios.delete(
