@@ -21,8 +21,8 @@ Laravel と Vue.js を用いたアプリ作成方法を学ぶため。
 
 ## テーブル設計
 
-https://github.com/koyama-anna/advancetest_koyama_anna/assets/118032025/80e18ae2-5c28-41f9-ab53-dbc35f4a54c8
+<img width="700" alt="スクリーンショット 2023-06-04 15 50 50" src="https://github.com/koyama-anna/Rese_vue/assets/118032025/c99e7c36-73bc-4ee1-8da6-61cd09593e77">
 
 ## ER 図
 
-https://github.com/koyama-anna/advancetest_koyama_anna/assets/118032025/28839919-cba1-40de-b41e-846872df1dd4
+<img width="700" alt="スクリーンショット 2023-06-04 15 49 26" src="https://github.com/koyama-anna/Rese_vue/assets/118032025/b2c550b3-42fa-4aa4-b9ab-3e94eec554ce">
