@@ -206,6 +206,7 @@ export default {
 .all {
   display: flex;
   padding-top: 60px;
+  padding-bottom: 500px;
 }
 
 .shop-detail {
