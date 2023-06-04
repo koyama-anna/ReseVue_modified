@@ -1,41 +1,50 @@
 <template>
   <div class="all">
-    <div class="center">
-      <h1 class="header-logo">Rese</h1>
+    <div class="header-menu">
+      <div class="hamburger-menu">
+        <label for="menu-btn-check" class="menu-btn" @click="menu"
+          ><span></span
+        ></label>
+      </div>
+      <div class="center">
+        <h1 class="header-logo">Rese</h1>
+      </div>
     </div>
     <div class="reservation">
-      <div class="reserve">予約状況</div>
-      <div
-        v-for="(reservation, index) in reservations"
-        :key="reservation.id"
-        class="reserve-card"
-      >
-        <div class="reserve-no">
-          <div class="reserve-ttl">
-            <div class="reserve-name">予約{{ index + 1 }}</div>
-            <div class="cancel-btn" @click="deleteReserve(reservation.id)">
-              ×
+      <div class="left_reserve">
+        <div class="reserve">予約状況</div>
+        <div
+          v-for="(reservation, index) in reservations"
+          :key="reservation.id"
+          class="reserve-card"
+        >
+          <div class="reserve-no">
+            <div class="reserve-ttl">
+              <div class="reserve-name">予約{{ index + 1 }}</div>
+              <div class="cancel-btn" @click="deleteReserve(reservation.id)">
+                ×
+              </div>
             </div>
-          </div>
-          <div class="reserve-list">
-            <table class="list-table">
-              <tr class="list-shop">
-                <th>Shop</th>
-                <td>{{ shopName(reservation.shop_id) }}</td>
-              </tr>
-              <tr class="list-date">
-                <th>Date</th>
-                <td>{{ reservation.date }}</td>
-              </tr>
-              <tr class="list-time">
-                <th>Time</th>
-                <td>{{ reservation.time }}</td>
-              </tr>
-              <tr class="list-number">
-                <th>Number</th>
-                <td>{{ reservation.number }}人</td>
-              </tr>
-            </table>
+            <div class="reserve-list">
+              <table class="list-table">
+                <tr class="list-shop">
+                  <th>Shop</th>
+                  <td>{{ shopName(reservation.shop_id) }}</td>
+                </tr>
+                <tr class="list-date">
+                  <th>Date</th>
+                  <td>{{ reservation.date }}</td>
+                </tr>
+                <tr class="list-time">
+                  <th>Time</th>
+                  <td>{{ reservation.time }}</td>
+                </tr>
+                <tr class="list-number">
+                  <th>Number</th>
+                  <td>{{ reservation.number }}人</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -130,6 +139,9 @@ export default {
       this.reservations = reservationData.data;
       console.log(reserveId);
     },
+    menu() {
+      this.$router.push("/menu");
+    },
   },
   async mounted() {
     const item = await axios.get("http://localhost:8000/api/v1/shop");
@@ -150,10 +162,6 @@ export default {
 };
 </script>
 <style scoped>
-.all {
-  background-color: #ebebeb;
-}
-
 .flex {
   display: flex;
   flex-wrap: wrap;
@@ -161,8 +169,11 @@ export default {
 }
 
 .header-logo {
+  position: fixed;
   height: 70px;
   line-height: 70px;
+  margin-left: 70px;
+  margin-top: 5px;
 }
 .center {
   font-size: 20px;
@@ -170,8 +181,55 @@ export default {
   color: #077af2;
 }
 
+.reservation {
+  padding-top: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+  background-color: #077af2;
+  margin: 10px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  position: absolute;
+}
+.menu-btn span:before {
+  bottom: 8px;
+}
+.menu-btn span:after {
+  top: 8px;
+}
+.all {
+  background-color: #ebebeb;
+}
+
+.left_reserve {
+  padding: 30px;
+  margin-top: 40px;
+}
+
 .reserve-card {
-  width: 300px;
+  width: 330px;
   border-radius: 5px;
   margin: 15px 5px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
@@ -180,12 +238,39 @@ export default {
   padding: 15px 15px;
 }
 
+.reserve-name {
+  padding-top: 3px;
+}
+
 .reserve-ttl {
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
 }
 
+.reserve {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+th,
+td {
+  padding: 7px 0;
+  font-weight: normal;
+}
+
+td {
+  padding-left: 10px;
+}
+
+th {
+  text-align: left;
+}
+
+.login-name {
+  font-size: 24px;
+  font-weight: bold;
+}
 .cancel-btn {
   font-size: 17px;
   font-weight: bold;
@@ -198,11 +283,24 @@ export default {
 .unfavorite {
   display: none;
 }
+.mypage {
+  width: 65%;
+}
+.favorite-shop {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.favorite-tytle {
+  padding-top: 45px;
+  font-size: 20px;
+  font-weight: 600;
+}
 
 .shop-card {
   width: 260px;
   border-radius: 5px;
-  margin: 15px 5px;
+  margin: 15px 20px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -243,15 +341,6 @@ export default {
 }
 .heart-1 {
   color: red;
-  font-size: 24px;
-  border: none;
-  background: transparent;
-  transform: scaleX(1.5);
-  margin: 15px 0;
-}
-
-.heart-2 {
-  color: #ebebeb;
   font-size: 24px;
   border: none;
   background: transparent;

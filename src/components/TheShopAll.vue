@@ -1,15 +1,37 @@
 <template>
   <div class="all">
-    <div class="center">
-      <h1 class="header-logo">Rese</h1>
-    </div>
-    <div class="search">
-      <select name="area" v-model="search_area">
-        <option value="" selected>All area</option>
-        <option value="東京都">東京都</option>
-        <option value="福岡県">福岡県</option>
-        <option value="大阪府">大阪府</option>
-      </select>
+    <div class="header">
+      <div class="header-menu">
+        <div class="hamburger-menu">
+          <label for="menu-btn-check" class="menu-btn" @click="menu"
+            ><span></span
+          ></label>
+        </div>
+        <div class="center">
+          <h1 class="header-logo">Rese</h1>
+        </div>
+      </div>
+      <div class="search">
+        <select name="area" v-model="search_area" class="search_area">
+          <option value="" selected>All area</option>
+          <option value="東京都">東京都</option>
+          <option value="福岡県">福岡県</option>
+          <option value="大阪府">大阪府</option>
+        </select>
+        <select name="genre" v-model="search_genre" class="search_genre">
+          <option value="" selected>All genre</option>
+          <option value="寿司">寿司</option>
+          <option value="焼肉">焼肉</option>
+          <option value="居酒屋">居酒屋</option>
+          <option value="イタリアン">イタリアン</option>
+          <option value="ラーメン">ラーメン</option>
+        </select>
+        <input
+          v-model="search_name"
+          class="search_name"
+          placeholder="Search ..."
+        />
+      </div>
     </div>
     <div class="home flex">
       <div v-for="shop in shops" :key="shop.id">
@@ -69,6 +91,8 @@ export default {
       shops: [],
       favorites: [],
       search_area: "",
+      search_genre: "",
+      search_name: "",
     };
   },
   methods: {
@@ -97,12 +121,18 @@ export default {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
       return favorite.length != 0;
     },
-    async filteredAreas(shopArea) {
+    async filteredsearch(shopArea, shopGenre, shopName) {
       const item = await axios.get("http://localhost:8000/api/v1/shop", {
         area: shopArea,
+        genre: shopGenre,
+        name: shopName,
       });
+      console.log(shopArea);
       const shopData = item.data;
       this.shops = shopData.data;
+    },
+    menu() {
+      this.$router.push("/menu");
     },
   },
   async mounted() {
@@ -114,8 +144,12 @@ export default {
     this.favorites = favoriteData.data;
   },
   computed: {
-    searchAreas() {
-      return this.filteredAreas(this.search_area);
+    searchs() {
+      return this.filteredsearch(
+        this.search_area,
+        this.search_genre,
+        this.search_name
+      );
     },
   },
 };
@@ -133,14 +167,86 @@ export default {
 }
 
 .header-logo {
+  position: fixed;
   height: 70px;
   line-height: 70px;
+  margin-left: 70px;
+  margin-top: 5px;
 }
 .center {
   font-size: 20px;
   font-weight: bold;
   color: #077af2;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+  background-color: #077af2;
+  margin: 10px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  position: absolute;
+}
+.menu-btn span:before {
+  bottom: 8px;
+}
+.menu-btn span:after {
+  top: 8px;
+}
+
+.search {
+  margin: 30px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.search_area,
+.search_genre,
+.search_name {
+  font-size: 14px;
+  border: none;
+  height: 35px;
+  box-sizing: content-box;
+}
+
+.search_area,
+search_genre {
+  padding-left: 15px;
+}
+
+.search_area {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.search_name {
+  width: 250px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .shop-card {
   width: 260px;
   border-radius: 5px;

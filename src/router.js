@@ -5,6 +5,7 @@ import TheShopInfo from "./components/TheShopInfo.vue";
 import LoginForm from "./components/LoginForm.vue";
 import ReserveDone from "./components/ReserveDone.vue";
 import MyPage from "./components/MyPage.vue";
+import TheMenu from "./components/TheMenu.vue";
 
 
 const routes = [
@@ -32,6 +33,11 @@ const routes = [
     path:"/mypage",
     name:"mypage",
     component: MyPage,
+},
+{
+    path:"/menu",
+    name:"themenu",
+    component: TheMenu,
 }
 ]
 

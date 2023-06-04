@@ -7,9 +7,7 @@
       <div class="card">
         <div class="thanks">ご予約ありがとうございます</div>
         <div class="back">
-          <router-link :to="{ name: 'theshopall' }" class="back-btn"
-            >戻る</router-link
-          >
+          <button @click="$router.go(-1)" class="back-btn">戻る</button>
         </div>
       </div>
     </div>
@@ -47,8 +45,8 @@
 
 .back {
   background-color: #006cd9;
-  width: 30px;
-  padding: 8px 12px;
+  width: 50px;
+  padding: 5px 10px;
   border-radius: 5px;
   margin: 15px auto;
   margin-top: 15px;
@@ -56,7 +54,9 @@
 }
 
 .back-btn {
-  text-decoration: none;
+  border: none;
+  background: transparent;
   color: white;
+  font-size: 14px;
 }
 </style>
