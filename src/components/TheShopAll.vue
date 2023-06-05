@@ -104,7 +104,6 @@ export default {
       const favorite = await axios.get("http://localhost:8000/api/v1/favorite");
       const favoriteData = favorite.data;
       this.favorites = favoriteData.data;
-      console.log(shopId);
     },
     async deleteFavorite(shopId) {
       const favorite = this.favorites.filter((x) => x.shop_id == shopId);
@@ -143,13 +142,15 @@ export default {
     const favoriteData = favorite.data;
     this.favorites = favoriteData.data;
   },
-  computed: {
-    searchs() {
-      return this.filteredsearch(
-        this.search_area,
-        this.search_genre,
-        this.search_name
-      );
+  watch: {
+    search_name(newName) {
+      this.filteredsearch(this.search_area, this.search_genre, newName);
+    },
+    search_area(newArea) {
+      this.filteredsearch(newArea, this.search_genre, this.search_name);
+    },
+    search_genre(newGenre) {
+      this.filteredsearch(this.search_area, newGenre, this.search_name);
     },
   },
 };
