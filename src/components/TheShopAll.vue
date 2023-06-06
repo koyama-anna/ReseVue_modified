@@ -122,11 +122,13 @@ export default {
     },
     async filteredsearch(shopArea, shopGenre, shopName) {
       const item = await axios.get("http://localhost:8000/api/v1/shop", {
-        area: shopArea,
-        genre: shopGenre,
-        name: shopName,
+        params: {
+          area: shopArea,
+          genre: shopGenre,
+          name: shopName,
+        },
       });
-      console.log(shopArea);
+      console.log(item);
       const shopData = item.data;
       this.shops = shopData.data;
     },
@@ -143,14 +145,14 @@ export default {
     this.favorites = favoriteData.data;
   },
   watch: {
-    search_name(newName) {
-      this.filteredsearch(this.search_area, this.search_genre, newName);
-    },
     search_area(newArea) {
       this.filteredsearch(newArea, this.search_genre, this.search_name);
     },
     search_genre(newGenre) {
       this.filteredsearch(this.search_area, newGenre, this.search_name);
+    },
+    search_name(newName) {
+      this.filteredsearch(this.search_area, this.search_genre, newName);
     },
   },
 };

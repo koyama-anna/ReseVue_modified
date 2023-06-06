@@ -150,6 +150,7 @@ export default {
     const favorite = await axios.get("http://localhost:8000/api/v1/favorite");
     const favoriteData = favorite.data;
     this.favorites = favoriteData.data;
+
     const reservation = await axios.get(
       "http://localhost:8000/api/v1/reservation"
     );
