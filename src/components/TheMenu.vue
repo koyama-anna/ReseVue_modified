@@ -10,7 +10,7 @@
         <router-link to="/" class="home">Home</router-link>
       </div>
       <div>
-        <router-link to="/login" class="login">Login</router-link>
+        <div class="login" @click="Logout()">Logout</div>
       </div>
       <div>
         <router-link to="/mypage" class="mypage">Mypage</router-link>
@@ -18,7 +18,18 @@
     </div>
   </div>
 </template>
-<script></script>
+<script>
+import axios from "axios";
+export default {
+  methods: {
+    Logout() {
+      axios.defaults.headers.common["Authorization"] = "";
+      localStorage.removeItem("token");
+      this.$router.push({ name: "loginform" });
+    },
+  },
+};
+</script>
 <style scoped>
 .menu-btn {
   position: fixed;

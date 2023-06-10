@@ -7,8 +7,17 @@
       <h1 class="header-logo">Rese</h1>
     </div>
   </div>
-  <div class="login">
-    <div class="login-ttl">Login</div>
+  <div class="registration">
+    <div class="registration-ttl">Registration</div>
+    <div class="form-item">
+      <label for="username" class="username-label"></label>
+      <input
+        id="username"
+        type="text"
+        v-model="username"
+        placeholder="Username"
+      />
+    </div>
     <div class="form-item">
       <label for="email" class="email-label"></label>
       <input id="email" type="text" v-model="email" placeholder="Email" />
@@ -23,7 +32,12 @@
       />
     </div>
     <div class="form-item">
-      <button @click="handle()" class="login-btn">ログイン</button>
+      <button
+        @click="registration(username, email, password)"
+        class="registration-btn"
+      >
+        登録
+      </button>
     </div>
   </div>
 </template>
@@ -33,21 +47,19 @@ import axios from "axios";
 export default {
   data() {
     return {
+      username: "",
       email: "",
       password: "",
     };
   },
   methods: {
-    async handle() {
-      const token = (
-        await axios.post("http://localhost:8000/api/login", {
-          email: this.email,
-          password: this.password,
-        })
-      ).data.token;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // axiosのすべてのリクエストにトークンを付加する
-      localStorage.setItem("token", token);
-      this.$router.push({ name: "theshopall" });
+    async registration(UserName, eMail, passWord) {
+      await axios.post("http://localhost:8000/api/v1/user", {
+        name: UserName,
+        email: eMail,
+        password: passWord,
+      });
+      this.$router.push({ name: "registerthanks" });
     },
   },
 };
@@ -110,7 +122,7 @@ export default {
 .menu-btn span:after {
   top: 8px;
 }
-.login {
+.registration {
   margin: 0 auto;
   transform: translate(0, 200px);
   width: 30%;
@@ -118,7 +130,7 @@ export default {
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-.login-ttl {
+.registration-ttl {
   padding: 15px;
   background-color: #077af2;
   border-top-left-radius: 5px;
@@ -127,13 +139,14 @@ export default {
   font-weight: bold;
 }
 #email,
-#password {
+#password,
+#username {
   width: 80%;
   margin: 10px 0 10px 25px;
   border: none;
   border-bottom: 2px solid #ebebeb;
 }
-.login-btn {
+.registration-btn {
   background-color: #077af2;
   padding: 8px 12px;
   border: none;

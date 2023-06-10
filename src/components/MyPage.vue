@@ -53,14 +53,16 @@
         <div class="favorite-card">
           <div class="favorite-tytle">お気に入り店舗</div>
           <div class="favorite-shop">
-            <div v-for="shop in shops" :key="shop.id">
+            <div v-for="shop in getFavoriteShops" :key="shop.id">
               <div class="shop-card">
                 <div v-if="isFavorite(shop.id) == true">
                   <div class="shop-photo">
                     <img :src="shop.photo" alt="イメージ画像" />
                   </div>
                   <div class="shop-content">
-                    <div class="shop-name">{{ shop.name }}</div>
+                    <div class="shop-name">
+                      {{ shop.name }}
+                    </div>
                     <div class="tag">
                       <div class="shop-area">#{{ shop.area }}</div>
                       <div class="shop-genre">#{{ shop.genre }}</div>
@@ -68,7 +70,10 @@
                     <div class="btn">
                       <div class="detail-btn">
                         <router-link
-                          :to="{ name: 'theshopinfo', params: { id: shop.id } }"
+                          :to="{
+                            name: 'theshopinfo',
+                            params: { id: shop.id },
+                          }"
                           class="link"
                           >詳しくみる</router-link
                         >
@@ -159,6 +164,11 @@ export default {
     const loginUser = await axios.get("http://localhost:8000/api/v1/user");
     const userData = loginUser.data;
     this.user = userData.data;
+  },
+  computed: {
+    getFavoriteShops() {
+      return this.shops.filter((x) => this.isFavorite(x.id));
+    },
   },
 };
 </script>
